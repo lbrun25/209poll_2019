@@ -26,5 +26,4 @@ func main() {
         os.Exit(84)
     }
     poll.Poll()
-    os.Exit(0)
 }
