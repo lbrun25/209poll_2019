@@ -16,8 +16,8 @@ func getVariance() float64 {
 }
 
 func clamp(value float64) float64 {
-	min := 0.0
-	max := 100.0
+	const min float64 = 0.0
+	const max float64 = 100.0
 
 	if value > max {
 		return max
