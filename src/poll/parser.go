@@ -11,6 +11,7 @@ const (
 	notEnoughArgs = "There are not enough arguments.\n"
 	mustBePositiveInteger = "must be a positive integer.\n"
 	mustBeGreaterThanZero = "must be greater than zero.\n"
+	mustBeSmallerThanPSize = "must be smaller than pSize\n"
 	percentageMustBeBetween = "The percentage of voting intentions must be between 0 and 100.\n"
 	maxArg = 3
 	minArg = 3
@@ -58,11 +59,15 @@ func getIntegerPositiveValueGreaterThanZero(valueName string, arg string) (bool,
 }
 
 func getPercentageValue(arg string) (bool, float64) {
-	if !utils.IsPercentageValue(arg) {
+	if !utils.IsFloat(arg) {
 		printError(percentageMustBeBetween)
 		return false, -1
 	}
 	float := utils.ConvertStringToFloat(arg)
+	if float < 0 || float > 100 {
+		printError(percentageMustBeBetween)
+		return false, -1
+	}
 	return true, float
 }
 
@@ -94,6 +99,10 @@ func CheckArgs() bool {
 		// Check and assign sSize
 		if valueName == "sSize" {
 			status, float := getIntegerPositiveValueGreaterThanZero(valueName, arg)
+			if float > a.pSize {
+				printErrorWithValue(valueName, mustBeSmallerThanPSize)
+				return false
+			}
 			if !status {
 				return false
 			}

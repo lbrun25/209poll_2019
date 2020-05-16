@@ -4,9 +4,9 @@ import (
 	"regexp"
 )
 
-// IsPercentageValue - check if the value is a percentage value
-func IsPercentageValue(value string) bool {
-	var re = regexp.MustCompile("((100)|(\\d{1,2}(.\\d*)?))")
+// IsFloat - check if the value is a float value
+func IsFloat(value string) bool {
+	var re = regexp.MustCompile("[+-]?([0-9]*[.])?[0-9]+")
 
 	match := re.FindString(value)
 	if len(value) != len(match) {
